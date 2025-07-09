@@ -205,7 +205,7 @@ node ./scripts/test-node.cjs
 Откройте `test-browser.html` в браузере или запустите через HTTP сервер:
 
 ```bash
-python3 -m http.server 8000
+npx http-server -p 8000
 # Затем откройте http://localhost:8000/test-browser.html
 ```
 
