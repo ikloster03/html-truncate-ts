@@ -1,19 +1,63 @@
 {
   "name": "html-truncate-ts",
   "version": "0.1.0",
-  "description": "TypeScript project for HTML truncation",
+  "description": "TypeScript library for truncating HTML strings while preserving HTML tags and structure",
   "type": "module",
   "keywords": [
     "typescript",
     "html",
-    "truncate"
+    "truncate",
+    "html-truncate",
+    "text-truncate",
+    "safe-html",
+    "html-parser",
+    "string-manipulation",
+    "text-processing"
   ],
   "license": "MIT",
   "author": "Ivan Monastyrev <ikloster@yandex.ru>",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/ikloster03/html-truncate-ts#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikloster03/html-truncate-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ikloster03/html-truncate-ts/issues"
+  },
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.js",
+  "browser": "dist/umd/html-truncate.min.js",
+  "types": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      },
+      "browser": "./dist/umd/html-truncate.min.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "README.ru.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "pnpm build:clean && pnpm build:esm && pnpm build:esm:fix && pnpm build:cjs && pnpm build:cjs:rename && pnpm build:umd",
+    "build:clean": "rm -rf dist",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:esm:fix": "node scripts/fix-esm-imports.js",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:cjs:rename": "node scripts/rename-cjs.js",
+    "build:umd": "rollup -c rollup.config.js",
     "clean": "rm -rf dist",
     "dev": "tsc --watch",
     "format": "prettier --write .",
@@ -21,9 +65,12 @@
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "prepare": "simple-git-hooks",
+    "prepublishOnly": "pnpm build && pnpm test:all",
     "sort": "npx sort-package-json",
-    "start": "node dist/index.js",
+    "start": "node dist/esm/index.js",
     "test": "jest",
+    "test:all": "node scripts/test-all-formats.js",
+    "test:formats": "pnpm build && pnpm test:all",
     "test:watch": "jest --watch",
     "typecheck": "tsc --noEmit"
   },
@@ -35,6 +82,10 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.4",
     "@types/jest": "^29.5.0",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
@@ -44,8 +95,10 @@
     "eslint-plugin-prettier": "^5.5.1",
     "jest": "^29.5.0",
     "prettier": "^3.6.2",
+    "rollup": "^4.44.2",
     "simple-git-hooks": "^2.13.0",
     "ts-jest": "^29.1.0",
+    "tslib": "^2.8.1",
     "typescript": "^5.0.0"
   }
 }

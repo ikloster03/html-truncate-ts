@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Truncate TS - Browser Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .test-case {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .original {
+        background-color: #f5f5f5;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 3px;
+      }
+      .result {
+        background-color: #e8f5e8;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 3px;
+      }
+      .error {
+        background-color: #ffe8e8;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HTML Truncate TS - Browser Test</h1>
+
+    <div id="test-results"></div>
+
+    <script src="dist/umd/html-truncate.min.js"></script>
+    <script>
+      const testCases = [
+        {
+          name: 'Simple HTML truncation',
+          html: '<p>This is a <strong>very long</strong> HTML string that needs to be truncated</p>',
+          maxLength: 50,
+          options: {},
+        },
+        {
+          name: 'Custom ellipsis',
+          html: '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>',
+          maxLength: 30,
+          options: { ellipsis: ' [...]' },
+        },
+        {
+          name: 'Keep image tag',
+          html: '<p>Some text <img src="image.jpg" alt="test"> more text</p>',
+          maxLength: 20,
+          options: { keepImageTag: true },
+        },
+        {
+          name: 'No ellipsis',
+          html: '<span>Short text that will be truncated</span>',
+          maxLength: 15,
+          options: { ellipsis: '' },
+        },
+        {
+          name: 'Truncate last word',
+          html: '<p>This is a sentence with many words</p>',
+          maxLength: 25,
+          options: { truncateLastWord: false },
+        },
+      ];
+
+      function runTests() {
+        const resultsDiv = document.getElementById('test-results');
+
+        testCases.forEach((testCase, index) => {
+          const testDiv = document.createElement('div');
+          testDiv.className = 'test-case';
+
+          try {
+            const result = HtmlTruncate.truncate(
+              testCase.html,
+              testCase.maxLength,
+              testCase.options
+            );
+
+            testDiv.innerHTML = `
+                        <h3>Test ${index + 1}: ${testCase.name}</h3>
+                        <p><strong>Max Length:</strong> ${testCase.maxLength}</p>
+                        <p><strong>Options:</strong> ${JSON.stringify(testCase.options)}</p>
+                        <div class="original">
+                            <strong>Original:</strong><br>
+                            ${testCase.html}
+                        </div>
+                        <div class="result">
+                            <strong>Result:</strong><br>
+                            ${result}
+                        </div>
+                        <p><strong>Result Length:</strong> ${result.replace(/<[^>]*>/g, '').length}</p>
+                    `;
+          } catch (error) {
+            testDiv.innerHTML = `
+                        <h3>Test ${index + 1}: ${testCase.name}</h3>
+                        <div class="error">
+                            <strong>Error:</strong> ${error.message}
+                        </div>
+                    `;
+          }
+
+          resultsDiv.appendChild(testDiv);
+        });
+      }
+
+      // Check if HtmlTruncate is available
+      if (typeof HtmlTruncate !== 'undefined') {
+        runTests();
+      } else {
+        document.getElementById('test-results').innerHTML =
+          '<div class="error">HtmlTruncate is not available. Make sure the script is loaded correctly.</div>';
+      }
+    </script>
+  </body>
+</html>

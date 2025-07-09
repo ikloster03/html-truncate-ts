@@ -8,6 +8,7 @@ export default [
   js.configs.recommended,
   {
     files: ['**/*.{ts,tsx}'],
+    ignores: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -39,7 +40,7 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: './tsconfig.json',
+        project: './tsconfig.test.json',
       },
       globals: {
         describe: 'readonly',
@@ -70,6 +71,6 @@ export default [
     },
   },
   {
-    ignores: ['dist/', 'node_modules/', '*.config.js'],
+    ignores: ['dist/', 'node_modules/', '*.config.js', 'scripts/'],
   },
 ];
