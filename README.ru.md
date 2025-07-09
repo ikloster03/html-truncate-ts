@@ -2,11 +2,10 @@
 
 > **Языки:** [🇺🇸 English](./README.md) | **🇷🇺 Русский**
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=Jest&logoColor=white)](https://jestjs.io/)
-[![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)](https://eslint.org/)
-[![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white)](https://prettier.io/)
+[![npm version](https://badge.fury.io/js/html-truncate-ts.svg)](https://badge.fury.io/js/html-truncate-ts)
+[![npm downloads](https://img.shields.io/npm/dw/html-truncate-ts)](https://badge.fury.io/js/html-truncate-ts)
+[![NPM license](https://img.shields.io/npm/l/html-truncate-ts)](https://github.com/ikloster03/html-truncate-ts/blob/main/LICENSE)
+[![npm type definitions](https://img.shields.io/npm/types/html-truncate-ts)](https://github.com/ikloster03/html-truncate-ts)
 
 ---
 
