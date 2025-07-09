@@ -72,7 +72,14 @@
     "test:all": "node scripts/test-all-formats.js",
     "test:formats": "pnpm build && pnpm test:all",
     "test:watch": "jest --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "version:patch": "pnpm version patch && git push && git push --tags",
+    "version:minor": "pnpm version minor && git push && git push --tags",
+    "version:major": "pnpm version major && git push && git push --tags",
+    "version:prerelease": "pnpm version prerelease && git push && git push --tags",
+    "version:prepatch": "pnpm version prepatch && git push && git push --tags",
+    "version:preminor": "pnpm version preminor && git push && git push --tags",
+    "version:premajor": "pnpm version premajor && git push && git push --tags"
   },
   "simple-git-hooks": {
     "commit-msg": "npx commitlint --edit $1",
